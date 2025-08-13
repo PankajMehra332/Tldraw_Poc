@@ -1,3 +1,4 @@
+import React, { Suspense, useState } from "react";
 import {
   DefaultToolbar,
   DefaultToolbarContent,
@@ -7,12 +8,10 @@ import {
   useTools,
 } from "tldraw";
 import "tldraw/tldraw.css";
-import { useState } from "react";
-import TableModal from "../components/table/TableModal";
-import ChartModal from "../components/chart/ChartModal";
-import {TableShapeUtil} from "../shapes/TableShape";
+import { TableShapeUtil } from "../shapes/TableShape";
 import { ChartShapeUtil } from "../shapes/ChartShape";
-;
+const TableModal = React.lazy(() => import("../components/table/TableModal"));
+const ChartModal = React.lazy(() => import("../components/chart/ChartModal"));
 export default function TldrawEditor() {
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
@@ -133,25 +132,27 @@ export default function TldrawEditor() {
   };
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Tldraw
         shapeUtils={[TableShapeUtil, ChartShapeUtil]}
         overrides={uiOverrides}
         components={components}
         assetUrls={customAssetUrls}
       />
-
-      <TableModal
-        isOpen={isTableModalOpen}
-        onClose={() => setIsTableModalOpen(false)}
-        onConfirm={handleTableConfirm}
-      />
-
-      <ChartModal
-        isOpen={isChartModalOpen}
-        onClose={() => setIsChartModalOpen(false)}
-        onConfirm={handleChartConfirm}
-      />
+      <Suspense fallback={<div>Loading…</div>}>
+        <TableModal
+          isOpen={isTableModalOpen}
+          onClose={() => setIsTableModalOpen(false)}
+          onConfirm={handleTableConfirm}
+        />
+      </Suspense>
+      <Suspense fallback={<div>Loading…</div>}>
+        <ChartModal
+          isOpen={isChartModalOpen}
+          onClose={() => setIsChartModalOpen(false)}
+          onConfirm={handleChartConfirm}
+        />
+      </Suspense>
     </div>
   );
 }
