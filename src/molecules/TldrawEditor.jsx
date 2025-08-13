@@ -90,8 +90,8 @@ export default function TldrawEditor() {
       return {
         text: toolbar["text"],
         select: toolbar["select"],
-        "table-tool": tools["table-tool"],
-        "chart-tool": tools["chart-tool"],
+        "table-tool": toolbar["table-tool"],
+        "chart-tool": toolbar["chart-tool"],
       };
     },
     actionsMenu: () => null,
