@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Group,
   Title,
@@ -7,10 +7,10 @@ import {
   Paper,
   Stack,
   ActionIcon,
-  Box,
   ScrollArea,
   Card,
   Divider,
+  Box,
 } from "@mantine/core";
 import {
   IconPlus,
@@ -23,19 +23,14 @@ import {
   IconStar,
   IconFolder,
 } from "@tabler/icons-react";
-import { Tldraw } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
 import "./App.css";
-import { components, textOptions, UiOverRides } from "./tldraw.constant";
-import extensionFontFamilies from "./fonts";
+import TldrawEditor from "./molecules/TldrawEditor";
 
 function App() {
   const [activeSection, setActiveSection] = useState("Editors Tab");
   const [showOutline, setShowOutline] = useState(true);
   const [showLibrary, setShowLibrary] = useState(true);
-  const [activeEditor, setActiveEditor] = useState(null);
-
-  const editorRefs = useRef({});
 
   const outlineSections = [
     "Editors Tab",
@@ -53,16 +48,6 @@ function App() {
     { name: "Testimonials", icon: IconUsers },
     { name: "Content", icon: IconFileText },
   ];
-
-  const handleEditorFocus = (editorId) => {
-    setActiveEditor(editorId);
-  };
-
-  const handleEditorMount = (editorId, editor) => {
-    editorRefs.current[editorId] = editor;
-  };
-
-  const exoFont = extensionFontFamilies["'Exo 2'"].normal.normal.src.url;
 
   return (
     <div className="app-container">
@@ -132,189 +117,69 @@ function App() {
                 </Title>
                 <Stack gap="md">
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 1
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor1"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor1")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor1", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 2
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor2"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor2")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor2", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 3
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor3"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor3")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor3", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 4
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor4"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor4")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor4", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 5
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor5"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor5")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor5", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                   <Paper withBorder p="md">
-                    <Text fw={500} mb="md">
-                      Editor 6
-                    </Text>
                     <Box
                       h={400}
                       style={{
                         border: "1px solid var(--mantine-color-gray-3)",
                         borderRadius: "var(--mantine-radius-md)",
-                        borderColor:
-                          activeEditor === "editor6"
-                            ? "var(--mantine-color-blue-5)"
-                            : "var(--mantine-color-gray-3)",
                       }}
-                      onClick={() => handleEditorFocus("editor6")}
                     >
-                      <Tldraw
-                        components={components}
-                        textOptions={textOptions}
-                        overrides={UiOverRides}
-                        assetUrls={{
-                          fonts: {
-                            tldraw_mono: exoFont,
-                          },
-                        }}
-                        onMount={(editor) =>
-                          handleEditorMount("editor6", editor)
-                        }
-                      />
+                      <TldrawEditor />
                     </Box>
                   </Paper>
                 </Stack>
