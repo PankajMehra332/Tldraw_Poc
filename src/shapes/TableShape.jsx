@@ -9,19 +9,29 @@ export class TableShapeUtil extends ShapeUtil {
     columns: T.number,
     w: T.number,
     h: T.number,
+    cellData: T.dict(T.string, T.string),
   };
 
   getDefaultProps() {
+    const defaultRows = 3;
+    const defaultCols = 3;
+    const defaultCellData = {};
+    for (let r = 0; r < defaultRows; r++) {
+      for (let c = 0; c < defaultCols; c++) {
+        defaultCellData[`${r}-${c}`] = "";
+      }
+    }
     return {
-      rows: 3,
-      columns: 3,
+      rows: defaultRows,
+      columns: defaultCols,
+      cellData: defaultCellData,
       w: 450,
       h: 150,
     };
   }
-
+  
   canEdit() {
-    return true;
+    return false;
   }
 
   canResize() {
@@ -58,12 +68,7 @@ export class TableShapeUtil extends ShapeUtil {
           pointerEvents: "all",
         }}
       >
-        <TableComponent
-          rows={shape.props.rows}
-          columns={shape.props.columns}
-          width={shape.props.w}
-          height={shape.props.h}
-        />
+        <TableComponent shape={shape} />
       </HTMLContainer>
     );
   }
